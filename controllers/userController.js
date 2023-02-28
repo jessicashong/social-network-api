@@ -37,10 +37,20 @@ module.exports = {
     },
     // put route to update user
     updateUser(req, res){
-        // User.updateOne(
-            // { _id: req.params.userId },
-            // { $set: { req.body}})
-            // .then()
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        )
+            .then((user) => 
+                !user
+                    ? res.status(404).json({ message: 'No user with that id' })
+                    : res.json(user)
+            )
+            .catch((err) => {
+                console.error(err);
+                res.status(500).json(err);
+            })
     },
     // delete a user
     deleteUser(req, res){

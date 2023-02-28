@@ -13,8 +13,10 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            //Mongoose's matching validation
-            //regex?
+            match: [
+                /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
+                'Please add a valid email address.',
+            ],
         },
         thoughts: [
             {
