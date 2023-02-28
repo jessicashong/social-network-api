@@ -5,7 +5,6 @@ const {
     createUser,
     updateUser,
     deleteUser,
-    getFriends,
     addFriend,
     removeFriend,
 } = require('../../controllers/userController');
@@ -26,7 +25,6 @@ router
 // view user's list of friends, create friend
 router
     .route('/:userId/friends')
-    .get(getFriends)
     .post(addFriend);
 
 // remove friend from user's friend list

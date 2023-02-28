@@ -26,7 +26,6 @@ router
 
 router
     .route('/:thoughtId/reactions')
-    .get(getReactions)
     .post(addReaction)
 
 router
