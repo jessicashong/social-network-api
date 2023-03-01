@@ -14,13 +14,20 @@ module.exports = {
             .then((thought) => 
                 !thought    
                     ? res.status(404).json({ message: 'No thought with that id' })
-                    : res.json(user)
+                    : res.json(thought)
             )
             .catch((err) => res.status(500).json(err));
     },
     // create a thought
     createThought(req, res){
         Thought.create(req.body)
+            .then(newthought => {
+                return User.findOneAndUpdate(
+                    { where: { username: req.body.username } },
+                    { $addToSet: { thoughts: newthought._id } },
+                    { new: true }
+                );
+            })
             .then((thought) => res.json(thought))
             .catch((err) => {
                 console.error(err);
